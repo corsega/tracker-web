@@ -1,26 +1,59 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Avatar, Layout, Menu, Col, Row, Typography } from 'antd'
+import { UserOutlined } from '@ant-design/icons'
+import { Switch, Route, useHistory } from "react-router-dom"
+import HomePage from './home/HomePage'
+import ProjectPage from './projects/ProjectPage'
+import './App.css'
+import { users } from './data'
 
-function App() {
+const App = () => {
+  const history = useHistory()
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Layout style={{ minHeight: '100vh' }}>
+      <Layout.Header className="header">
+
+        <Row>
+          <Col>
+            <div className="logo" />
+          </Col>
+          <Col flex="auto">
+            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
+              <Menu.Item key="1" onClick={() => history.push('/')}>
+                Home
+              </Menu.Item>
+              {/* <Menu.Item key="2">nav 2</Menu.Item>
+              <Menu.Item key="3">nav 3</Menu.Item> */}
+            </Menu>
+          </Col>
+          <Col flex="100px" className="right">
+            {/* <Typography.Text>
+            {users[0].email} 
+            </Typography.Text> */}
+            <Avatar size="small" icon={<UserOutlined />} />
+          </Col>
+        </Row>
+      </Layout.Header>
+
+      <Layout style={{ padding: '0 24px 24px' }}>
+        <Switch>
+          <Route path="/:projectId/:projectTabKey">
+            <ProjectPage />
+          </Route>
+          <Route path="/:projectId">
+            <ProjectPage />
+          </Route>
+          <Route path="/">
+            <HomePage />
+          </Route>
+        </Switch>
+      </Layout>
+
+      <Layout.Footer style={{ textAlign: 'center' }}>
+        © {(new Date()).getFullYear()} Created by corsega.io
+      </Layout.Footer>
+    </Layout>
+  )
 }
 
-export default App;
+export default App
