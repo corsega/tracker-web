@@ -1,46 +1,70 @@
-import {
-  Breadcrumb,
-  Layout,
-  Row,
-  Col,
-} from 'antd'
-import { useHistory } from 'react-router'
-import ProjectCard from '../projects/ProjectCard'
-import IProject from '../projects/IProject'
-import { projects } from '../data'
+import { Breadcrumb, Button, Layout, PageHeader, Row, Tag } from 'antd'
+// import { Content } from 'antd/lib/layout/layout'
+import HomeProjectList from './HomeProjectList'
+
+const routes = [
+  {
+    path: '/',
+    breadcrumbName: 'Projects',
+  },
+  // {
+  //   path: 'first',
+  //   breadcrumbName: 'Second-level Menu',
+  // },
+  // {
+  //   path: 'second',
+  //   breadcrumbName: 'Third-level Menu',
+  // },
+]
+
+// const Content = (props: any) => (
+//   <Row>
+//     <div style={{ flex: 1 }}>{props.children}</div>
+//     <div className="image">{props.extraContent}</div>
+//   </Row>
+// )
 
 const HomePage = () => {
-  const history = useHistory()
-
-  const onClick = (project: IProject) => {
-    history.push(`/${project.id}`)
-  }
-
   return (
     <div className="HomePage">
-      <Breadcrumb style={{ margin: '16px 0' }}>
-        <Breadcrumb.Item>Home</Breadcrumb.Item>
-        <Breadcrumb.Item>List</Breadcrumb.Item>
-        <Breadcrumb.Item>App</Breadcrumb.Item>
-      </Breadcrumb>
-      <Layout.Content
-        className="HomePage-content"
-        style={{
-          paddingTop: 24,
-          margin: 0,
-          minHeight: 280,
-        }}
-      >
-        <div className="HomePage-projects">
-          <Row gutter={[16, 16]}>
-            {projects.map((project: IProject) => (
-              <Col key={project.id} span={8}>
-                <ProjectCard project={project} onClick={onClick} />
-              </Col>
-            ))}
-          </Row>
-        </div>
-      </Layout.Content>
+      <PageHeader
+          title="Projects"
+          className="HomePage-header"
+          // subTitle="This is a subtitle"
+          // tags={<Tag color="blue">Running</Tag>}
+          extra={[
+            // <Button key="3">Operation</Button>,
+            // <Button key="2">Operation</Button>,
+            <Button key="1" type="primary">
+              Create Project
+            </Button>,
+          ]}
+          // breadcrumb={{ routes }}
+        >
+          {/* <Content
+            extraContent={
+              <img
+                src="https://gw.alipayobjects.com/zos/antfincdn/K%24NnlsB%26hz/pageHeader.svg"
+                alt="content"
+                width="100%"
+              />
+            }
+          >
+            Foo
+          </Content> */}
+        <Layout.Content
+          className="HomePage-content"
+          style={{
+            // paddingTop: 24,
+            margin: 0,
+            minHeight: 280,
+          }}
+        >
+          <div className="HomePage-projects">
+            <HomeProjectList />
+          </div>
+        </Layout.Content>
+      </PageHeader>
     </div>
   )
 }

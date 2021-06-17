@@ -4,15 +4,16 @@ import { Switch, Route, useHistory } from "react-router-dom"
 import HomePage from './home/HomePage'
 import ProjectPage from './projects/ProjectPage'
 import './App.css'
-import { users } from './data'
+import UserContext from './users/UserContext'
+// import { useEffect } from 'react'
 
 const App = () => {
   const history = useHistory()
 
   return (
+
     <Layout style={{ minHeight: '100vh' }}>
       <Layout.Header className="header">
-
         <Row>
           <Col>
             <div className="logo" />
@@ -26,11 +27,11 @@ const App = () => {
               <Menu.Item key="3">nav 3</Menu.Item> */}
             </Menu>
           </Col>
-          <Col flex="100px" className="right">
-            {/* <Typography.Text>
-            {users[0].email} 
-            </Typography.Text> */}
-            <Avatar size="small" icon={<UserOutlined />} />
+          <Col flex="100px" className="right" style={{ color: '#fff'}}>
+            {/* <Avatar size="small" icon={<UserOutlined />} /> */}
+            <UserContext.Consumer>
+              {({ user }) => user?.username}
+            </UserContext.Consumer>
           </Col>
         </Row>
       </Layout.Header>
